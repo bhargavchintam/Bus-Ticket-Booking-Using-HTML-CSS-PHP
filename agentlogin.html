@@ -1,0 +1,51 @@
+<html>
+<body> 
+<form action="agent.html" method="post">
+	<div>
+		<center><h1>AGENT LOGIN</h1></center>
+		<table align="center" cellpadding="10">
+
+			<tbody><tr>
+				<td>USER NAME</td>
+				<td><input type="text" name="username" maxlength="30"></td>
+			</tr>
+
+			<tr>
+				<td>PASSWORD</td>
+				<td><input type="password" name="password" maxlength="30"></td>
+			</tr>
+ 
+			<tr>
+				<td colspan="2" align="center">
+					<a href="agent.html"><input type="submit" value="LOGIN" onclick="validate()"></a>
+					
+				</td>
+			</tr>
+		</tbody></table>
+		</div></form>
+		<script>
+		function validate()
+		{
+			var name=document.getElementByID("username").value;
+			var pass=document.getElementByID("password").value;
+			var conn = new ActiveXObject("ADODB.Connection");
+			var connstr = "Data Source=<server>;Initial Catalog=<catalog>;User ID=<user>;Password=<password>;Provider=SQLOLEDB";
+			conn.Open(connstr);
+			var rs = new ActiveXObject("ADODB,Recordset");
+			rs.Open("select name,password from agent");
+			rs.MoveFirst;
+			while(!rs.eof)
+			{
+				if(name == rs.fields(0) && password == rs.fields(1))
+				{
+					return;
+				}
+				else
+				{
+					alert("Invalid username/password, retry again");
+				}
+			}
+			
+		}
+		</script>
+</body></html>
